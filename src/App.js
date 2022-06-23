@@ -1,25 +1,61 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Error404 from './pages/Error404';
+import UserDashboard from './pages/UserDashboard';
+import Navbar from './components/Navbar';
+import Name from './components/Name';
+import Age from './components/Age';
+import Email from './components/Email';
+import Phone from './components/Phone';
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [age, setAge] = useState(10);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/dashboard/email');
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              name={name}
+              age={age}
+              email={email}
+              phone={phone}
+              setEmail={setEmail}
+              setPhone={setPhone}
+              handleSubmit={handleSubmit}
+              setName={setName}
+              setAge={setAge}
+            />
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<Error404 />} />
+        <Route path="/dashboard/email" element={<UserDashboard />}>
+          {/* INDEX ROUTE  */}
+          <Route index element={<Email email={email} />} />
+          {/* OUTLET CHILD #nested-routes */}
+          <Route path="name" element={<Name name={name} />} />
+          <Route path="age" element={<Age age={age} />} />
+          <Route path="email" element={<Email email={email} />} />
+          <Route path="phone" element={<Phone phone={phone} />} />
+        </Route>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
