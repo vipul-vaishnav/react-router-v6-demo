@@ -26,6 +26,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="header__navbar-item">
+              <NavLink to="/products" style={apply_active_classes} className="header__navbar-link">
+                Products
+              </NavLink>
+            </li>
+            <li className="header__navbar-item">
               <NavLink to="/about" style={apply_active_classes} className="header__navbar-link">
                 About
               </NavLink>

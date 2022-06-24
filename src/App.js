@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Error404 from './pages/Error404';
 import UserDashboard from './pages/UserDashboard';
+import Products from './pages/Products';
+import ProductDetails from './pages/ProductDetails';
 import Navbar from './components/Navbar';
 import Name from './components/Name';
 import Age from './components/Age';
@@ -20,7 +22,7 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/dashboard/email');
+    navigate('/dashboard');
   };
   return (
     <div className="App">
@@ -44,9 +46,12 @@ const App = () => {
         />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Error404 />} />
-        <Route path="/dashboard/email" element={<UserDashboard />}>
+        <Route path="/products" element={<Products />} />
+        {/* DYNMAIC ROUTE */}
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/dashboard" element={<UserDashboard />}>
           {/* INDEX ROUTE  */}
-          <Route index element={<Email email={email} />} />
+          <Route index element={<Name name={name} />} />
           {/* OUTLET CHILD #nested-routes */}
           <Route path="name" element={<Name name={name} />} />
           <Route path="age" element={<Age age={age} />} />
